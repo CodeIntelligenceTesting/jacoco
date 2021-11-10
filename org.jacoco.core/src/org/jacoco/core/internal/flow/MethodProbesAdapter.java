@@ -152,6 +152,14 @@ public final class MethodProbesAdapter extends MethodVisitor {
 	}
 
 	@Override
+	public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+		super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+		if (JavaNoThrowMethods.shouldInstrumentMethodInsn(owner, name, descriptor)) {
+			probesVisitor.visitProbe(idGenerator.nextId());
+		}
+	}
+
+	@Override
 	public void visitTableSwitchInsn(final int min, final int max,
 			final Label dflt, final Label... labels) {
 		if (markLabels(dflt, labels)) {
