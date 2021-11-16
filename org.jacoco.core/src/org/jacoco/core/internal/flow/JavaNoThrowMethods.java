@@ -1,11 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2021 Mountainminds GmbH & Co. KG and Contributors
+ * This program and the accompanying materials are made available under
+ * the terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    Fabian Meumertzheim - initial implementation
+ *
+ *******************************************************************************/
 package org.jacoco.core.internal.flow;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public final class JavaNoThrowMethods {
     public static boolean isTesting = false;
@@ -34,18 +46,29 @@ public final class JavaNoThrowMethods {
         if (classLoader == null) {
             classLoader = ClassLoader.getSystemClassLoader();
         }
-        try (InputStream resourceStream = classLoader.getResourceAsStream(DATA_FILE_RESOURCE_PATH)) {
-            if (resourceStream == null) {
-                throw new IllegalStateException(String.format(
-                        "No-throw method signatures not found at resource path: %s%n",
-                        DATA_FILE_RESOURCE_PATH));
+        InputStream resourceStream = classLoader.getResourceAsStream(DATA_FILE_RESOURCE_PATH);
+        if (resourceStream == null) {
+            throw new IllegalStateException(String.format(
+                    "No-throw method signatures not found at resource path: %s%n",
+                    DATA_FILE_RESOURCE_PATH));
+        }
+        BufferedReader resourceReader = new BufferedReader(new InputStreamReader(resourceStream));
+        try {
+            Set<String> list = new HashSet<String>();
+            String line;
+            while ((line  = resourceReader.readLine()) != null) {
+                list.add(line);
             }
-            try (BufferedReader resourceReader =
-                         new BufferedReader(new InputStreamReader(resourceStream))) {
-                return resourceReader.lines().collect(Collectors.toSet());
-            }
+            return list;
         } catch (IOException e) {
             throw new IllegalStateException("Failed to load no-throw method list");
+        } finally {
+            try {
+                resourceStream.close();
+            } catch (IOException ignored) {}
+            try {
+                resourceReader.close();
+            } catch (IOException ignored) {}
         }
     }
 }
