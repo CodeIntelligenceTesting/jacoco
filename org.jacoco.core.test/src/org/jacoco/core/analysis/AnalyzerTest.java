@@ -164,7 +164,7 @@ public class AnalyzerTest {
 		final byte[] bytes = TargetLoader
 				.getClassDataAsBytes(AnalyzerTest.class);
 		executionData.get(Long.valueOf(CRC64.classId(bytes)),
-				"org/jacoco/core/analysis/AnalyzerTest", 200);
+				"org/jacoco/core/analysis/AnalyzerTest", 250);
 		analyzer.analyzeClass(bytes, "Test");
 		assertFalse(classes.get("org/jacoco/core/analysis/AnalyzerTest")
 				.isNoMatch());
@@ -173,7 +173,7 @@ public class AnalyzerTest {
 	@Test
 	public void testAnalyzeClassNoIdMatch() throws IOException {
 		executionData.get(Long.valueOf(0),
-				"org/jacoco/core/analysis/AnalyzerTest", 200);
+				"org/jacoco/core/analysis/AnalyzerTest", 250);
 		analyzer.analyzeClass(
 				TargetLoader.getClassDataAsBytes(AnalyzerTest.class), "Test");
 		assertTrue(classes.get("org/jacoco/core/analysis/AnalyzerTest")
