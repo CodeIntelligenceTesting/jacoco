@@ -152,9 +152,11 @@ public final class MethodProbesAdapter extends MethodVisitor {
 	}
 
 	@Override
-	public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+	public void visitMethodInsn(int opcode, String owner, String name,
+			String descriptor, boolean isInterface) {
 		super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
-		if (JavaNoThrowMethods.shouldInstrumentMethodInsn(owner, name, descriptor)) {
+		if (JavaNoThrowMethods.shouldInstrumentMethodInsn(owner, name,
+				descriptor)) {
 			probesVisitor.visitProbe(idGenerator.nextId());
 		}
 	}
