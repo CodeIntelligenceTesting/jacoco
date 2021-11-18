@@ -119,31 +119,31 @@
     <sourceDirectory>src</sourceDirectory>
 
     <plugins>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${project.version}</version>
-        <executions>
-          <execution>
-            <id>report-aggregate</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>report-aggregate</goal>
-            </goals>
-            <configuration>
-              <title>JaCoCo</title>
-              <footer>Code Coverage Report for JaCoCo ${project.version}</footer>
-              <includes>
-                <!-- Analyze class files only to exclude shaded agent JAR from report -->
-                <include>**/*.class</include>
-              </includes>
-              <excludes>
-                <exclude>**/HelpMojo.class</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.jacoco</groupId>-->
+<!--        <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--        <version>${project.version}</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>report-aggregate</id>-->
+<!--            <phase>prepare-package</phase>-->
+<!--            <goals>-->
+<!--              <goal>report-aggregate</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <title>JaCoCo</title>-->
+<!--              <footer>Code Coverage Report for JaCoCo ${project.version}</footer>-->
+<!--              <includes>-->
+<!--                &lt;!&ndash; Analyze class files only to exclude shaded agent JAR from report &ndash;&gt;-->
+<!--                <include>**/*.class</include>-->
+<!--              </includes>-->
+<!--              <excludes>-->
+<!--                <exclude>**/HelpMojo.class</exclude>-->
+<!--              </excludes>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
