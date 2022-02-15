@@ -31,14 +31,12 @@ public final class JavaNoThrowMethods {
 		if (!owner.startsWith("java/")) {
 			return true;
 		}
-		return !LIST
-				.contains(String.format("%s#%s#%s", owner, name, descriptor));
+		return !LIST.contains(owner + '#' + name + '#' + descriptor);
 	}
 
 	private static final String DATA_FILE_NAME = "java_no_throw_methods_list.dat";
-	private static final String DATA_FILE_RESOURCE_PATH = String.format("%s/%s",
-			JavaNoThrowMethods.class.getPackage().getName().replace('.', '/'),
-			DATA_FILE_NAME);
+	private static final String DATA_FILE_RESOURCE_PATH = JavaNoThrowMethods.class
+			.getPackage().getName().replace('.', '/') + '/' + DATA_FILE_NAME;
 	private static final Set<String> LIST = readJavaNoThrowMethods();
 
 	private static Set<String> readJavaNoThrowMethods() {
